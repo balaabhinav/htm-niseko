@@ -26,12 +26,11 @@ class App extends Component {
     render() {
 
         let data = properties;
+        
+        // Filter the array of properties based on the search string
         data = data.filter( p => {
-            console.log("in filter => ", p.name.toLowerCase().indexOf(this.state.search.toLowerCase())!==-1 || p.description.toLowerCase().indexOf(this.state.search.toLowerCase())!==-1);
             return (p.name.toLowerCase().indexOf(this.state.search.toLowerCase())!==-1 || p.description.toLowerCase().indexOf(this.state.search.toLowerCase())!==-1)? true : false
         })
-
-        console.log("rerender => ", data);
 
         return (
             <div className="App">
