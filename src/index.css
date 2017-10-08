@@ -24,6 +24,10 @@ body {
     height: auto;
 }
 
+.search-box {
+    padding : 3%!important;
+}
+
 .listing-container {
     margin: 3%;
     padding : 1%;
@@ -109,7 +113,7 @@ body {
 }
 
 /* Safari, Chrome and Opera > 12.1 */
-@-webkit-keyframes fadein { 
+@-webkit-keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
 }

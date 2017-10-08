@@ -22,6 +22,18 @@ export default class Listing extends Component {
         this.toggleModal = this.toggleModal.bind(this);
     }
 
+    componentWillReceiveProps(nextProps) {
+
+        // Reset state on new props
+        this.setState({
+            listing : nextProps.listing,
+            tooltipOpen: false,
+            toggleMore : false,
+            modal : false,
+            modalType : ""
+        })
+    }
+
     render(){
         return (
             <div className="listing-container">

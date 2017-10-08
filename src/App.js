@@ -4,6 +4,7 @@ import './App.css';
 import Header from './Components/Header';
 import Listing from './Components/Listing';
 import * as properties from './properties.json';
+import * as _ from 'lodash';
 
 class App extends Component {
 
@@ -14,26 +15,32 @@ class App extends Component {
 
         // Initialise the state with empty data which will get populated from the fetched data
         this.state = {
-            data : []
+            search : ''
         }
 
-    }
-
-    // Life-cycle hook which gets triggered once
-    componentWillMount() {
-
-        // call the setData function to populate the state's data variable with the data from properties.json
-        this.setData();
+        this.setSearch = this.setSearch.bind(this);
 
     }
 
     // Render function to render and re-render based on the changes in state variable
     render() {
+
+        let data = properties;
+        data = data.filter( p => {
+            console.log("in filter => ", p.name.toLowerCase().indexOf(this.state.search.toLowerCase())!==-1 || p.description.toLowerCase().indexOf(this.state.search.toLowerCase())!==-1);
+            return (p.name.toLowerCase().indexOf(this.state.search.toLowerCase())!==-1 || p.description.toLowerCase().indexOf(this.state.search.toLowerCase())!==-1)? true : false
+        })
+
+        console.log("rerender => ", data);
+
         return (
             <div className="App">
                 <Header title="Stay. Play. Experience. Find your holiday in the heart of Niseko." />
+                <div className="container search-box">
+                    <input type="search" className="form-control" onChange={evt => this.setSearch(evt.target.value)} value={ this.state.search } placeholder="Search properties"/>
+                </div>
                 {
-                    this.state.data.length===0?
+                    data.length===0?
                         (
                             <div className="no-data">
                                 No Listings available!
@@ -42,7 +49,7 @@ class App extends Component {
                         (
                             <div className="container">
                                 {
-                                    this.state.data.map( (d,i) => (
+                                    data.map( (d,i) => (
                                         <Listing listing={ d } key={ i } id={ i } />
                                     ))
                                 }
@@ -54,16 +61,16 @@ class App extends Component {
     }
 
     /**
-     * @name : fetchData
-     * @desc : Fetches the properties list from the properties.json
-     * file and populates the state object's data
+     * @name : setSearch
+     * @desc : Sets the search value on the state
+     * @param searchText
      */
-    setData() {
+    setSearch(searchText) {
 
-        // Populate the state with the properties list
         this.setState({
-            data : properties
-        });
+            search : searchText
+        })
+
     }
 }
 
