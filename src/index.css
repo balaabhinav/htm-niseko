@@ -101,6 +101,10 @@ body {
     animation: fadein 2s;
 }
 
+.modal-backdrop.show {
+    opacity: .2!important;
+}
+
 @keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
